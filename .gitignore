@@ -1,6 +1,4 @@
 .DS_Store
-dist/
-src/api/clients/apiurl.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
