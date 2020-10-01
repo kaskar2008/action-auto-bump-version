@@ -7,6 +7,12 @@ inputs:
   minor-label:
     description: 'Minor version bump label'
     default: 'minor'
+  patch-label:
+    description: 'Patch version bump label'
+    default: 'patch'
+  should-default:
+    description: 'Should the default version command be called (valid "npm version" argument)'
+    default: false
   default:
     description: 'Default version command (valid "npm version" argument)'
     default: 'patch'

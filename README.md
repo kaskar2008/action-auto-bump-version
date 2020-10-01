@@ -12,9 +12,17 @@ Major version bump label. Default `"major"`.
 
 Minor version bump label. Default `"minor"`.
 
+### `patch-label`
+
+Patch version bump label. Default `"patch"`.
+
+### `should-default`
+
+Should the default version command be called (valid `npm version` argument). Default `false`.
+
 ### `default`
 
-Default version command (valid `npm version` argument). Default `"patch"`.
+Default version command if no label is provided (valid `npm version` argument). Default `"patch"`.
 
 ## Example usage
 

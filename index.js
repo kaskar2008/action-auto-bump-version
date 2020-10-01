@@ -9,29 +9,35 @@ try {
     }
   });
 
-  const majorLabel = core.getInput('major-label');
-  const minorLabel = core.getInput('minor-label');
+  const labelMap = {
+    major: core.getInput('major-label'),
+    minor: core.getInput('minor-label'),
+    patch: core.getInput('patch-label'),
+  };
+
   const defaultCommand = core.getInput('default');
-  let command = '';
+  const isDefaultCommand = Boolean(core.getInput('should-default'));
+  let command = isDefaultCommand ? defaultCommand : '';
 
   /**
    * @type string[]
    */
   const labels = github.context.payload.pull_request.labels.map(el => el.name);
 
-  if (labels.includes(majorLabel)) {
-    command = 'major';
-  } else if (labels.includes(minorLabel)) {
-    command = 'minor';
-  } else {
-    command = defaultCommand;
+  for (const key in labelMap) {
+    const element = labelMap[key];
+    if (labels.includes(element)) {
+      command = key;
+    }
   }
 
-  exec(`npm version ${command} && git push --follow-tags`, (err) => {
-    if (err) {
-      throw err;
-    }
-  });
+  if (command) {
+    exec(`npm version ${command} && git push --follow-tags`, (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+  }
 } catch (error) {
   core.setFailed(error.message);
 }
