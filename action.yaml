@@ -1,5 +1,5 @@
 name: 'Auto bump version'
-description: 'Bump target branch version on PR merge'
+description: 'Bumps target branch version on PR merge'
 inputs:
   major-label:
     description: 'Major version bump label'
@@ -7,8 +7,8 @@ inputs:
   minor-label:
     description: 'Minor version bump label'
     default: 'minor'
-  patch-label:
-    description: 'Patch version bump label'
+  default:
+    description: 'Default version command (valid "npm version" argument)'
     default: 'patch'
 runs:
   using: 'node12'

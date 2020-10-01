@@ -11,6 +11,7 @@ try {
 
   const majorLabel = core.getInput('major-label');
   const minorLabel = core.getInput('minor-label');
+  const defaultCommand = core.getInput('default');
   let command = '';
 
   /**
@@ -23,7 +24,7 @@ try {
   } else if (labels.includes(minorLabel)) {
     command = 'minor';
   } else {
-    command = 'patch';
+    command = defaultCommand;
   }
 
   exec(`npm version ${command} && git push --follow-tags`, (err) => {
