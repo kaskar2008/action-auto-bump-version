@@ -28,6 +28,7 @@ try {
     const element = labelMap[key];
     if (labels.includes(element)) {
       command = key;
+      break;
     }
   }
 
