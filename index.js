@@ -33,7 +33,7 @@ try {
   }
 
   if (command) {
-    exec(`npm version ${command} && git push --follow-tags --force`, (err) => {
+    exec(`npm version ${command} && git push --follow-tags --no-verify`, (err) => {
       if (err) {
         throw err;
       }
