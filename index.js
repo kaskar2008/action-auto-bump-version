@@ -3,7 +3,7 @@ const github = require('@actions/github');
 const { exec } = require('child_process');
 
 try {
-  exec(`git config user.name "GitHub Actions Bot" && git config user.email "<>"`, (err) => {
+  exec(`git config user.name "GitHub Actions Bot" && git config user.email "action@github.com"`, (err) => {
     if (err) {
       throw err;
     }
