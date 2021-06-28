@@ -9,34 +9,36 @@ try {
     }
   });
 
-  const labelMap = {
-    major: core.getInput('major-label'),
-    minor: core.getInput('minor-label'),
-    patch: core.getInput('patch-label'),
-  };
-
-  const defaultCommand = core.getInput('default');
-  const isDefaultCommand = Boolean(core.getInput('should-default'));
-  let command = isDefaultCommand ? defaultCommand : '';
+  const versionMap = ['major', 'minor', 'patch', 'premajor', 'preminor', 'prepatch', 'prerelease'];
+  let command = '';
 
   /**
    * @type string[]
    */
   const labels = github.context.payload.pull_request.labels.map(el => el.name);
 
-  for (const key in labelMap) {
-    const element = labelMap[key];
-    if (labels.includes(element)) {
-      command = key;
+  for (const version of versionMap) {
+    if (labels.includes(version)) {
+      command = version;
       break;
     }
   }
 
   if (command) {
-    exec(`npm version ${command} && git push --follow-tags --no-verify`, (err) => {
-      if (err) {
-        throw err;
+    exec(`npm version ${command}`, (versionError, version) => {
+      if (versionError) {
+        core.setFailed(versionError.message);
+        throw versionError;
       }
+
+      exec('git push --follow-tags --no-verify', (pushError) => {
+        if (pushError) {
+          core.setFailed(pushError.message);
+          throw pushError;
+        }
+
+        core.setOutput('tag', version);
+      });
     });
   }
 } catch (error) {

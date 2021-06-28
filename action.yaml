@@ -1,21 +1,8 @@
 name: 'Auto bump version'
 description: 'Bumps target branch version on PR merge'
-inputs:
-  major-label:
-    description: 'Major version bump label'
-    default: 'major'
-  minor-label:
-    description: 'Minor version bump label'
-    default: 'minor'
-  patch-label:
-    description: 'Patch version bump label'
-    default: 'patch'
-  should-default:
-    description: 'Should the default version command be called (valid "npm version" argument)'
-    default: false
-  default:
-    description: 'Default version command (valid "npm version" argument)'
-    default: 'patch'
+outputs:
+  tag:
+    description: 'New tag'
 runs:
   using: 'node12'
   main: 'index.js'
