@@ -1,5 +1,18 @@
 name: 'Auto bump version'
 description: 'Bumps target branch version on PR merge'
+inputs:
+  name:
+    description: 'Name to set git push author'
+    required: false
+    default: 'GitHub Actions Bot'
+  email:
+    description: 'Email to set git push author'
+    required: false
+    default: 'action@github.com'
+  token:
+    description: 'Write token to the repository'
+    required: false
+    default: ''
 outputs:
   tag:
     description: 'New tag'

@@ -1,9 +1,15 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 
 try {
-  exec(`git config user.name "GitHub Actions Bot" && git config user.email "action@github.com"`, (err) => {
+  const inputs = {
+    name: core.getInput('name'),
+    email: core.getInput('email'),
+    token: core.getInput('token') || process.env.TOKEN,
+  };
+
+  exec(`git config user.name "${inputs.name}" && git config user.email "${inputs.email}"`, (err) => {
     if (err) {
       throw err;
     }
