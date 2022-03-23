@@ -31,7 +31,7 @@ try {
   }
 
   if (command) {
-    exec(`npm version ${command}`, (versionError, version) => {
+    exec(`npm version ${command} -m "%s\r\n\r\n\r\nskip-checks: true"`, (versionError, version) => {
       if (versionError) {
         core.setFailed(versionError.message);
         throw versionError;
